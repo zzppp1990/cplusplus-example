@@ -1,4 +1,9 @@
 # Automotive-SOA
+## 翻译
+Encapsulation 封装  
+unidirectional 单向的  
+in advance 提前  
+interoperability 互操作性  
 
 
 参考：  
