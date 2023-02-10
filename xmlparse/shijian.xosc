@@ -1,0 +1,126 @@
+<?xml version="1.0"?>
+<OpenSCENARIO>
+	<FileHeader revMajor="1" revMinor="0" date="2023-02-07T10:57:11" description="" author="Saimo Scenario Designer" />
+	<CatalogLocations>
+		<VehicleCatalog>
+			<Directory path="Catalogs/VehicleCatalogs" />
+		</VehicleCatalog>
+		<ControllerCatalog>
+			<Directory path="Catalogs/DriverCatalogs" />
+		</ControllerCatalog>
+		<PedestrianCatalog>
+			<Directory path="Catalogs/PedestrianCatalogs" />
+		</PedestrianCatalog>
+		<MiscObjectCatalog>
+			<Directory path="Catalogs/MiscObjectCatalogs" />
+		</MiscObjectCatalog>
+		<EnvironmentCatalog>
+			<Directory path="Catalogs/EnvironmentCatalogs" />
+		</EnvironmentCatalog>
+		<ManeuverCatalog>
+			<Directory path="Catalogs/ManeuverCatalogs" />
+		</ManeuverCatalog>
+		<TrajectoryCatalog>
+			<Directory path="Catalogs/TrajectoryCatalogs" />
+		</TrajectoryCatalog>
+		<RouteCatalog>
+			<Directory path="Catalogs/RouteCatalogs" />
+		</RouteCatalog>
+	</CatalogLocations>
+	<RoadNetwork>
+		<LogicFile filepath="GZxhd20221019.xodr" />
+		<SceneGraphFile filepath="GuangZhou" />
+		<TrafficSignals>
+			<TrafficSignalController name="20008" delay="0.000000" reference="-1">
+				<Phase name="off" duration="5.000000">
+					<TrafficSignalState trafficSignalId="88881" state="false;false;false" />
+					<TrafficSignalState trafficSignalId="88882" state="false;false;false" />
+				</Phase>
+			</TrafficSignalController>
+		</TrafficSignals>
+	</RoadNetwork>
+	<Entities>
+		<ScenarioObject name="Ego">
+			<CatalogReference catalogName="VehicleCatalog" entryName="哈弗 H6" />
+			<ObjectController>
+				<CatalogReference catalogName="ControllerCatalog" entryName="默认驾驶员" />
+			</ObjectController>
+		</ScenarioObject>
+	</Entities>
+	<Storyboard>
+		<Init>
+			<Actions>
+				<Private entityRef="Ego">
+					<PrivateAction>
+						<TeleportAction>
+							<Position>
+								<LanePosition roadId="12228" laneId="-3" offset="0.450000" s="40.015358">
+									<Orientation h="2.564888" p="0.000000" r="0.000000" />
+								</LanePosition>
+							</Position>
+						</TeleportAction>
+					</PrivateAction>
+					<PrivateAction>
+						<LongitudinalAction>
+							<SpeedAction>
+								<SpeedActionDynamics dynamicsShape="step" value="0.000000" dynamicsDimension="time" />
+								<SpeedActionTarget>
+									<AbsoluteTargetSpeed value="8.333333" />
+								</SpeedActionTarget>
+							</SpeedAction>
+						</LongitudinalAction>
+					</PrivateAction>
+				</Private>
+			</Actions>
+		</Init>
+		<Story name="MyStory">
+			<Act name="Act1">
+				<ManeuverGroup maximumExecutionCount="1" name="Sequence0">
+					<Actors selectTriggeringEntities="true">
+						<EntityRef entityRef="Ego" />
+					</Actors>
+					<Maneuver name="Maneuver0">
+						<Event name="事件1" priority="overwrite" maximumExecutionCount="1">
+							<Action name="自动">
+								<PrivateAction>
+									<ActivateControllerAction lateral="1" longitudinal="1" />
+								</PrivateAction>
+							</Action>
+							<Action name="变速">
+								<PrivateAction>
+									<LongitudinalAction>
+										<SpeedAction>
+											<SpeedActionDynamics dynamicsShape="sinusoidal" value="4.000000" dynamicsDimension="rate" />
+											<SpeedActionTarget>
+												<AbsoluteTargetSpeed value="8.333333" />
+											</SpeedActionTarget>
+										</SpeedAction>
+									</LongitudinalAction>
+								</PrivateAction>
+							</Action>
+							<StartTrigger>
+								<ConditionGroup>
+									<Condition name="交通灯控制器" delay="0.000000" conditionEdge="rising">
+										<ByValueCondition>
+											<TrafficSignalControllerCondition trafficSignalControllerRef="20008" phase="" />
+										</ByValueCondition>
+									</Condition>
+								</ConditionGroup>
+							</StartTrigger>
+						</Event>
+					</Maneuver>
+				</ManeuverGroup>
+				<StartTrigger>
+					<ConditionGroup>
+						<Condition name="" delay="0.000000" conditionEdge="rising">
+							<ByValueCondition>
+								<SimulationTimeCondition value="0.000000" rule="greaterThan" />
+							</ByValueCondition>
+						</Condition>
+					</ConditionGroup>
+				</StartTrigger>
+			</Act>
+		</Story>
+		<StopTrigger />
+	</Storyboard>
+</OpenSCENARIO>

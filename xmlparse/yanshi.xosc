@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<OpenSCENARIO>
+	<FileHeader revMajor="1" revMinor="0" date="1970-01-01T07:59:59" description="" author="Saimo Scenario Designer" />
+	<CatalogLocations>
+		<VehicleCatalog>
+			<Directory path="Catalogs/VehicleCatalogs" />
+		</VehicleCatalog>
+		<ControllerCatalog>
+			<Directory path="Catalogs/DriverCatalogs" />
+		</ControllerCatalog>
+		<PedestrianCatalog>
+			<Directory path="Catalogs/PedestrianCatalogs" />
+		</PedestrianCatalog>
+		<MiscObjectCatalog>
+			<Directory path="Catalogs/MiscObjectCatalogs" />
+		</MiscObjectCatalog>
+		<EnvironmentCatalog>
+			<Directory path="Catalogs/EnvironmentCatalogs" />
+		</EnvironmentCatalog>
+		<ManeuverCatalog>
+			<Directory path="Catalogs/ManeuverCatalogs" />
+		</ManeuverCatalog>
+		<TrajectoryCatalog>
+			<Directory path="Catalogs/TrajectoryCatalogs" />
+		</TrajectoryCatalog>
+		<RouteCatalog>
+			<Directory path="Catalogs/RouteCatalogs" />
+		</RouteCatalog>
+	</CatalogLocations>
+	<RoadNetwork>
+		<LogicFile filepath="直道-1.xodr" />
+		<SceneGraphFile filepath="" />
+		<TrafficSignals />
+	</RoadNetwork>
+	<Entities>
+		<ScenarioObject name="Ego">
+			<CatalogReference catalogName="VehicleCatalog" entryName="Saimo" />
+			<ObjectController>
+				<CatalogReference catalogName="ControllerCatalog" entryName="默认驾驶员" />
+			</ObjectController>
+		</ScenarioObject>
+		<ScenarioObject name="车辆 01">
+			<CatalogReference catalogName="VehicleCatalog" entryName="Saimo" />
+			<ObjectController>
+				<CatalogReference catalogName="ControllerCatalog" entryName="默认驾驶员" />
+			</ObjectController>
+		</ScenarioObject>
+	</Entities>
+	<Storyboard>
+		<Init>
+			<Actions>
+				<Private entityRef="Ego">
+					<PrivateAction>
+						<TeleportAction>
+							<Position>
+								<LanePosition roadId="1" laneId="-2" offset="-0.560000" s="11.234852">
+									<Orientation h="0.000000" p="0.000000" r="0.000000" />
+								</LanePosition>
+							</Position>
+						</TeleportAction>
+					</PrivateAction>
+					<PrivateAction>
+						<LongitudinalAction>
+							<SpeedAction>
+								<SpeedActionDynamics dynamicsShape="step" value="0.000000" dynamicsDimension="time" />
+								<SpeedActionTarget>
+									<AbsoluteTargetSpeed value="8.333333" />
+								</SpeedActionTarget>
+							</SpeedAction>
+						</LongitudinalAction>
+					</PrivateAction>
+				</Private>
+				<Private entityRef="车辆 01">
+					<PrivateAction>
+						<TeleportAction>
+							<Position>
+								<LanePosition roadId="1" laneId="-2" offset="-0.330000" s="42.648422">
+									<Orientation h="0.000000" p="0.000000" r="0.000000" />
+								</LanePosition>
+							</Position>
+						</TeleportAction>
+					</PrivateAction>
+					<PrivateAction>
+						<LongitudinalAction>
+							<SpeedAction>
+								<SpeedActionDynamics dynamicsShape="step" value="0.000000" dynamicsDimension="time" />
+								<SpeedActionTarget>
+									<AbsoluteTargetSpeed value="8.333333" />
+								</SpeedActionTarget>
+							</SpeedAction>
+						</LongitudinalAction>
+					</PrivateAction>
+				</Private>
+			</Actions>
+		</Init>
+		<Story name="MyStory">
+			<Act name="Act1">
+				<ManeuverGroup maximumExecutionCount="1" name="Sequence0">
+					<Actors selectTriggeringEntities="true">
+						<EntityRef entityRef="Ego" />
+					</Actors>
+					<Maneuver name="Maneuver0">
+						<Event name="事件1" priority="overwrite" maximumExecutionCount="1">
+							<Action name="自动">
+								<PrivateAction>
+									<ActivateControllerAction lateral="1" longitudinal="1" />
+								</PrivateAction>
+							</Action>
+							<StartTrigger>
+								<ConditionGroup>
+									<Condition name="仿真时长" delay="5.000000" conditionEdge="rising">
+										<ByValueCondition>
+											<SimulationTimeCondition value="10.000000" rule="equalTo" />
+										</ByValueCondition>
+									</Condition>
+								</ConditionGroup>
+							</StartTrigger>
+						</Event>
+					</Maneuver>
+				</ManeuverGroup>
+				<StartTrigger>
+					<ConditionGroup>
+						<Condition name="" delay="0.000000" conditionEdge="rising">
+							<ByValueCondition>
+								<SimulationTimeCondition value="0.000000" rule="greaterThan" />
+							</ByValueCondition>
+						</Condition>
+					</ConditionGroup>
+				</StartTrigger>
+			</Act>
+			<Act name="Act2">
+				<ManeuverGroup maximumExecutionCount="1" name="Sequence1">
+					<Actors selectTriggeringEntities="true">
+						<EntityRef entityRef="车辆 01" />
+					</Actors>
+					<Maneuver name="Maneuver1">
+						<Event name="事件1" priority="overwrite" maximumExecutionCount="1">
+							<Action name="自动">
+								<PrivateAction>
+									<ActivateControllerAction lateral="1" longitudinal="1" />
+								</PrivateAction>
+							</Action>
+							<StartTrigger>
+								<ConditionGroup>
+									<Condition name="仿真时长" delay="5.000000" conditionEdge="rising">
+										<ByValueCondition>
+											<SimulationTimeCondition value="10.000000" rule="equalTo" />
+										</ByValueCondition>
+									</Condition>
+								</ConditionGroup>
+							</StartTrigger>
+						</Event>
+					</Maneuver>
+				</ManeuverGroup>
+				<StartTrigger>
+					<ConditionGroup>
+						<Condition name="" delay="0.000000" conditionEdge="rising">
+							<ByValueCondition>
+								<SimulationTimeCondition value="0.000000" rule="greaterThan" />
+							</ByValueCondition>
+						</Condition>
+					</ConditionGroup>
+				</StartTrigger>
+			</Act>
+		</Story>
+		<StopTrigger />
+	</Storyboard>
+</OpenSCENARIO>
